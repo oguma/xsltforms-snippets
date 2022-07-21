@@ -5,8 +5,8 @@
     <script src="xsltforms/xsltforms.js"></script>
     <script>
       window.onload = function() {
-        var req1 = XsltForms_browser.openRequest("GET", "fods/sample1.fods", false);
-        var req2 = XsltForms_browser.openRequest("GET", "xsl/fods_to_html.xsl", false);
+        var req1 = XsltForms_browser.openRequest("GET", "fods/sample1.fods?" + new Date().getTime(), false);
+        var req2 = XsltForms_browser.openRequest("GET", "xsl/fods_to_html.xsl?" + new Date().getTime(), false);
         req1.send();
         req2.send();
         var fods = req1.responseText;
