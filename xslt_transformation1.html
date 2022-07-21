@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>fods to html</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="xsltforms/xsltforms.js"></script>
+    <script>
+      window.onload = function() {
+        var req1 = XsltForms_browser.openRequest("GET", "fods/sample1.fods", false);
+        var req2 = XsltForms_browser.openRequest("GET", "xsl/fods_to_html.xsl", false);
+        req1.send();
+        req2.send();
+        var fods = req1.responseText;
+        var xslt = req2.responseText;
+        var html = XsltForms_browser.transformText(fods, xslt, true);
+        var ndoc = XsltForms_browser.createXMLDocument(html);
+        var tbl1 = ndoc.selectNodes("//table[@data-name='hello']")[0].outerHTML;
+        var tbl2 = ndoc.selectNodes("//table[2]")[0].outerHTML;
+        document.getElementById("result").innerHTML += tbl1;
+        document.getElementById("result").innerHTML += tbl2;
+      };
+    </script>
+  </head>
+  <body>
+    <p>fods to html table (execute fods_to_html.xsl) by xsltforms xslt transform</p>
+    <p>Please, run on webserver (a.g. http://localhost:8000)</p>
+    <div id="result"></div>
+  </body>
+</html>
