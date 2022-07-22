@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Q &amp; A</title>
+        <script src="xsltforms/xsltforms.js"></script>
+        <style>
+            h3 { margin: 0; }
+            div { border: 1px solid #ccc; padding: 1em; margin: 1em; }
+            input[type=checkbox] { font-size: 150%; }
+        </style>
+    </head>
+    <body>
+        <div id="result"></div>
+        <script>
+          var req1 = XsltForms_browser.openRequest("GET", "xml/qa.xml?" + new Date().getTime(), false);
+          var req2 = XsltForms_browser.openRequest("GET", "xsl/qa_to_xforms.xsl?" + new Date().getTime(), false);
+          req1.send();
+          req2.send();
+          var xml = req1.responseText;
+          var xsl = req2.responseText;
+          var xforms = XsltForms_browser.transformText(xml, xsl, true);
+          document.getElementById("result").innerHTML = xforms;
+        </script>
+    </body>
+</html>
